@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, output, Output } from '@angular/core';
 
-interface User {
- id: string;
-  avatar: string;
-  name: string;
+export interface User {
+id: string
+avatar: string
+name: string
 }
 
 @Component({
