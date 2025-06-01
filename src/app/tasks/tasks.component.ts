@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 import { TaskComponent } from '../task/task.component';
 
 import { dummyTasks } from '../dummy-tasks';
-import { NewTaskComponent } from './new-task/new-task.component';
+import { NewTaskComponent, type SubmitForm } from './new-task/new-task.component';
 
 @Component({
   selector: 'app-tasks',
@@ -32,5 +32,18 @@ export class TasksComponent {
 
   onFinishAddTask() {
     this.isAddingTask = false
+  }
+
+  onAddTask(data: SubmitForm) {
+    this.tasks.unshift({
+      id: new Date().getTime().toString(),
+      title: data.title,
+      summary: data.summary,
+      dueDate: data.date,
+      userId: this.id
+    })
+    this.isAddingTask = false
+
+    return
   }
 }
