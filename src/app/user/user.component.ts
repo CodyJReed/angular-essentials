@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, output, Output } from '@angular/core';
+import { CardComponent } from '../shared/card/card.component';
 
 export interface User {
 id: string
@@ -9,6 +10,7 @@ name: string
 @Component({
   selector: 'app-user',
   standalone: true,
+  imports: [CardComponent],
   templateUrl: './user.component.html',
   styleUrl: './user.component.css'
 })
