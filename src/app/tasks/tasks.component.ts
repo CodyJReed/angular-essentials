@@ -1,9 +1,8 @@
 import { Component, Input } from '@angular/core';
 
 import { TaskComponent } from '../task/task.component';
-
-import { dummyTasks } from '../dummy-tasks';
 import { NewTaskComponent, type SubmitForm } from './new-task/new-task.component';
+import { TasksService } from './tasks.service';
 
 @Component({
   selector: 'app-tasks',
@@ -16,34 +15,18 @@ export class TasksComponent {
   @Input({required: true}) id!: string
   @Input({required: true}) name!: string
   isAddingTask = false
-  tasks = dummyTasks;
+  
+  constructor(private taskService: TasksService) {}
 
   get selectedUserTasks() {
-    return this.tasks.filter(task => task.userId === this.id)
-  }
-
-  onCompleteTask(id: string) {
-    this.tasks = this.tasks.filter(task => task.id !== id)
+    return this.taskService.getUserTasks(this.id)
   }
 
   onStartAddTask() {
     this.isAddingTask = true
   }
 
-  onFinishAddTask() {
+  onCloseAddTask() {
     this.isAddingTask = false
-  }
-
-  onAddTask(data: SubmitForm) {
-    this.tasks.unshift({
-      id: new Date().getTime().toString(),
-      title: data.title,
-      summary: data.summary,
-      dueDate: data.date,
-      userId: this.id
-    })
-    this.isAddingTask = false
-
-    return
   }
 }
